@@ -10,12 +10,14 @@ This game is using mainly JavaScript in the Canvas element, without the usage of
 
 ## Game components - V 1.0
 
-### Characters
+### Character
 - Surfer (main character)
+
+### Obstacles
+
 - Students (2 different students)
 - Surf Instructor
 - pelicans
 
 ### Background
 Gif of a wave input on CSS
-
