@@ -147,7 +147,7 @@ function crashes() {
 
 
 function gameOver() {
-  if (lives === 0) {
+  if (lives <= 0) {
     gameArea.stop();
     return window.alert("Game Over!!!");
   }
