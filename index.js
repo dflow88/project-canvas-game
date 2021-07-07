@@ -6,7 +6,7 @@ ctx = canvas.getContext("2d");
 // STRUCTURE OF THE GAME AREA
 
 const gameArea = {
-  frames: 100,
+  frames: 0,
   start: function () {
     this.interval = setInterval(updateGameArea, 20);
   },
@@ -45,6 +45,9 @@ class Character {
       this.y -= this.speedY;
       this.speedY = 0;
     }
+
+    ctx.fillStyle = 'grey'
+    ctx.fillRect(700,15,180,50)
     ctx.beginPath();
     ctx.moveTo(500, 0);
     ctx.lineTo(655, 140);
@@ -76,7 +79,6 @@ function updateGameArea() {
   surfer.newPos();
   surfer.update();
   newObstacle();
-  crashes();
   gameOver()
 }
 
@@ -92,6 +94,8 @@ const obstacleArray = [
   ["./images/pelican1.png", 1080, 0, 60, 60],
   ["./images/pelican2.png", 1080, 0, 60, 60],
 ];
+
+
 
 function newObstacle() {
   for (i = 0; i < obstacles.length; i++) {
@@ -110,6 +114,7 @@ function newObstacle() {
     }
     obstacles[i].update();
   }
+
   gameArea.frames += 1;
 
   if (gameArea.frames % 120 === 0) {
@@ -128,7 +133,8 @@ function newObstacle() {
   }
 }
 
-let lives = 100;
+let lives = 3
+let blinkFrames = 0
 
 function crashes() {
   for (let i = 0; i < obstacles.length; i++) {
@@ -138,24 +144,35 @@ function crashes() {
       surfer.y + surfer.height > obstacles[i].y &&
       surfer.y < obstacles[i].y + obstacles[i].height
     ) {
-    console.log(lives)
-    lives -= 1
-    }
+      lives--
+      console.log(lives)
+      blinkFrames = 150
+      // blinkTime()
+    } //else {
+    // }
   }
 }
 
-
+// function blinkTime() {
+//   if (blinkFrames > 0) {
+//     blinkFrames--
+//   }
+//   if (blinkFrames >= 0) 
+// }
 
 function gameOver() {
+  if (blinkFrames === 0) {
+    crashes()
+  } else {
+    blinkFrames--
+  }
   if (lives <= 0) {
     gameArea.stop();
     return window.alert("Game Over!!!");
   }
 }
 
-ctx.fillStyle = 'grey'
-ctx.fillRect(730,10,150,50)
-ctx.strokeRect(0,0,20,30)
+
 
 //OBSTACULOS ACUMULADOS
 
@@ -166,34 +183,28 @@ gameArea.start();
 document.addEventListener("keydown", (e) => {
   switch (e.keyCode) {
     case 37:
-      if (surfer.speedX > -6) {
-        surfer.speedX -= 2;
-      } else {
-        surfer.speedX += 0;
-      }
-      break;
+      surfer.speedX = -4.5
+    break;
     case 39:
-      if (surfer.speedX < 11) {
-        surfer.speedX += 5;
-      } else {
-        surfer.speedX += 0;
-      }
+      surfer.speedX = 4.5
       break;
     case 38:
-      if (surfer.speedY > -6) {
-        surfer.speedY -= 2;
-      } else {
-        surfer.speedY += 0;
-      }
+      surfer.speedY = -4.5
       break;
     case 40:
-      if (surfer.speedY < 6) {
-        surfer.speedY += 2;
-      } else {
-        surfer.speedY += 0;
-      }
+      surfer.speedY = 4.5
       break;
     default:
       return;
   }
 });
+
+document.addEventListener('keyup', () => {
+  if (surfer.speedX > 0) {
+    surfer.speedX = 0.5;
+  } else {surfer.speedX = -0.5}
+  
+  if (surfer.speedY > 0) {
+    surfer.speedY = 0.5
+  } else {surfer.speedY = -0.5}
+})

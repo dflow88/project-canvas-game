@@ -1,7 +1,10 @@
 #main {
-    border: 5px solid hsl(240, 67%, 60%);
+    
     background-image: url(./images/ezgif.com-gif-maker\ \(1\).gif);
     filter: brightness(1);
+    position: absolute;
     background-repeat: no-repeat;
-    background-position: left;
+    top: 0;
+    left: 0;
+
 }
