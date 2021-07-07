@@ -21,3 +21,6 @@ This game is using mainly JavaScript in the Canvas element, without the usage of
 
 ### Background
 Gif of a wave input on CSS
+
+### Music credits
+Music from <a href="https://pixabay.com/music/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=105">Pixabay</a>
