@@ -94,7 +94,7 @@ function updateGameArea() {
   newChocolate()
   oneUp()
   runOverWin()
-  // gameOver()
+  gameOver()
 }
 
 // INICIO DE SURFER
@@ -342,14 +342,6 @@ function runOverWin() {
 //   if (blinkFrames >= 0) 
 // }
 
-
-// function drawLives() {
-//   const livesImage = new Image()
-//   livesImage.src = "./images/lives.png"
-//   livesImage.onload = () => {
-//   ctx.drawImage(livesImage, canvas.width - 240, 10, 36, 54);
-//   }
-// }
 
 function gameOver() {
 

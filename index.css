@@ -12,3 +12,11 @@
     left: 0;
 
 }
+
+#side {
+    border-style: 1px solid red;
+}
+
+#main-song {
+    display: none;
+}
