@@ -3,6 +3,11 @@
 const canvas = document.getElementById("main");
 ctx = canvas.getContext("2d");
 
+var f = new FontFace("Pacifico", 'https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+  f.load().then(function() {
+    // Ready to use the font in a canvas context
+});
+
 // STRUCTURE OF THE GAME AREA
 
 const gameArea = {
@@ -81,21 +86,21 @@ function updateGameArea() {
   gameArea.clear();
   surfer.newPos();
   surfer.update();
-  newLivesImage() 
+  scoreImage.update()
+  scoreNumber()
+  newLiveImage() 
   newObstacle();
   newInstructor()
   newChocolate()
   oneUp()
   runOverWin()
-  gameOver()
+  // gameOver()
 }
 
 // INICIO DE SURFER
 const surfer = new Character("./images/kid-surf (1).png", 100, 250, 90, 115, 'surfer');
 
-const livesImageArray = ["./images/lives.png", canvas.width - 240, 10, 36, 54, 'lives'];
-
-
+const liveImageArray = ["./images/lives.png", canvas.width - 240 +40 * 1, 10, 30, 45, 'liveImage']
 
 // INICIO Y UPDATE POSITION DE OBSTACULOS
 
@@ -109,6 +114,29 @@ const obstacleArray = [
 const instructorArray = ["./images/surf-instructor.png", canvas.width, canvas.height, 60, 60, 0]
 
 const chocolateArray = ["./images/funny-chocolate.png", canvas.width, canvas.height, 30, 35, 0]
+
+
+const scoreImage = new Character(instructorArray[0],canvas.width - instructorArray[3]/2 -(instructorArray[3]+15), 10,40,40,instructorArray[5])
+
+
+function newLiveImage() {
+  for (i = 0; i < surfer.lives; i++) {
+    livesImages.push(
+        new Character(liveImageArray[0],canvas.width - liveImageArray[3]/2 -(liveImageArray[3]+5)*3 + (liveImageArray[3]+5) * i, 70,liveImageArray[3],liveImageArray[4],liveImageArray[5]
+        )
+      )
+      livesImages[i].update()
+  }
+}
+
+let goal = 0
+
+function scoreNumber() {
+ctx.font = "50px Pacifico";
+ctx.fillStyle = "#30837E";
+ctx.textAlign = "center";
+ctx.fillText(goal, canvas.width - 35, 45)
+}
 
 function newInstructor() {
   for (i = 0; i < instructors.length; i++) {
@@ -232,15 +260,17 @@ function newObstacle() {
     }
 }
 
-function newLivesImage() {
-  for (i = 0; i < surfer.lives; i++) {
-    livesImages.push(
-      new Character(livesImageArray[0],canvas.width-livesImageArray[3] *10 + i*livesImageArray[3] +5, livesImageArray[2],livesImageArray[3],livesImageArray[4],livesImageArray[5]
-      )
-    );
-      }
-      livesImages[i].update();
-}
+// function newLivesImage() {
+//   const livesImage = new Image
+// livesImage.src = "./images/lives.png"
+//   livesImage.onload = () => {
+//     for (i = 0; i < surfer.lives; i++) {
+//       ctx.drawImage(livesImage, canvas.width - 240 +40 * i, 10, 36, 54)
+//         // drawImage(livesImageArray[0],canvas.width-livesImageArray[3] *10 + i*livesImageArray[3] +5, livesImageArray[2],livesImageArray[3],livesImageArray[4],livesImageArray[5]
+//         // )
+//     }
+//   }
+// }
 
 // let lives = 3
 let blinkFrames = 0
@@ -270,7 +300,9 @@ function oneUp() {
       surfer.y + surfer.height - 20 > chocolates[i].y &&
       surfer.y + 20 < chocolates[i].y + chocolates[i].height
     ) {
+      if (surfer.lives < 3){
       surfer.lives++
+      }
       console.log(surfer.lives)
       chocolates.splice(i,1)
       // blinkTime()
@@ -279,7 +311,7 @@ function oneUp() {
   }
 }
 
-let goal = 0
+
 function runOverWin() {
   for (let i = 0; i < instructors.length; i++) {
     if (
@@ -293,6 +325,7 @@ function runOverWin() {
       instructors.splice(i,1)
 
     if (goal == 10) {
+      goal++
       gameArea.stop();
       window.alert("YEWWW You win!")
     }
