@@ -399,3 +399,10 @@ document.addEventListener('keyup', () => {
     surfer.speedY = 0.5
   } else {surfer.speedY = -0.5}
 })
+
+document.addEventListener('click', () => {
+  const audioElement = document.getElementById("musica");
+  audioElement.load()
+  audioElement.play()
+})
+
