@@ -39,6 +39,8 @@ class Character {
     this.height = height;
     this.type = type
     this.lives = 3
+    this.blinkFrames = 0
+    this.blink = false
   }
 
   newPos() {
@@ -74,8 +76,18 @@ class Character {
   }
 
   update() {
-    this.image.onload;
-    ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    if (this.blinkFrames > 0 && this.type == 'surfer') {
+      if (this.blink == false) {
+        this.image.onload;
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        this.blink = true
+      } else {
+          this.blink = false
+      }
+    } else {
+      this.image.onload;
+      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    }
   }
 
 
@@ -273,7 +285,7 @@ function newObstacle() {
 // }
 
 // let lives = 3
-let blinkFrames = 0
+// let blinkFrames = 0
 
 function crashes() {
   for (let i = 0; i < obstacles.length; i++) {
@@ -283,9 +295,10 @@ function crashes() {
       surfer.y + surfer.height - 20 > obstacles[i].y &&
       surfer.y + 20 < obstacles[i].y + obstacles[i].height
     ) {
+      const audioElementCollision = document.getElementById("collision");
+      audioElementCollision.play()
       surfer.lives--
-      console.log(surfer.lives)
-      blinkFrames = 150
+      surfer.blinkFrames = 100
       // blinkTime()
     } //else {
     // }
@@ -302,8 +315,8 @@ function oneUp() {
     ) {
       if (surfer.lives < 3){
       surfer.lives++
+      audioElementChocolate.play()
       }
-      console.log(surfer.lives)
       chocolates.splice(i,1)
       // blinkTime()
     } //else {
@@ -320,14 +333,20 @@ function runOverWin() {
       surfer.y + surfer.height - 20 > instructors[i].y &&
       surfer.y + 20 < instructors[i].y + instructors[i].height
     ) {
+
+      audioElementInstructor.play()
       goal++
-      console.log(goal)
       instructors.splice(i,1)
 
     if (goal == 10) {
-      goal++
+      ctx.clearRect(canvas.width - 50, 10,35,45)
+      scoreNumber()
+      setTimeout(function(){audioElementWin1.play()},500)
+      setTimeout(function(){audioElementWin2.play()},900)
+      setTimeout(function(){audioElementWin3.play()},1400)
+      
+      setTimeout(function(){window.alert("YEWWW You win!")},1410)
       gameArea.stop();
-      window.alert("YEWWW You win!")
     }
       // blinkTime()
     } //else {
@@ -345,14 +364,15 @@ function runOverWin() {
 
 function gameOver() {
 
-  if (blinkFrames === 0) {
+  if (surfer.blinkFrames === 0) {
     crashes()
   } else {
-    blinkFrames--
+    surfer.blinkFrames--
   }
   if (surfer.lives <= 0) {
+    audioElementLose.play()
+    window.alert("Game Over!!!");
     gameArea.stop();
-    return window.alert("Game Over!!!");
   }
 }
 
@@ -400,9 +420,22 @@ document.addEventListener('keyup', () => {
   } else {surfer.speedY = -0.5}
 })
 
-document.addEventListener('click', () => {
-  const audioElement = document.getElementById("musica");
-  audioElement.load()
-  audioElement.play()
+
+window.addEventListener('click', () => {
+  audioElementMain.play()
 })
 
+const audioElementMain = document.getElementById("main-song");
+audioElementMain.load()
+const audioElementInstructor = document.getElementById("instructor-eat");
+audioElementInstructor.load()
+const audioElementChocolate = document.getElementById("choco-eat");
+audioElementChocolate.load()
+const audioElementWin1 = document.getElementById("win1");
+audioElementWin1.load()
+const audioElementWin2 = document.getElementById("win2");
+audioElementWin2.load()
+const audioElementWin3 = document.getElementById("win3");
+audioElementWin3.load()
+const audioElementLose = document.getElementById("lose");
+audioElementLose.load()

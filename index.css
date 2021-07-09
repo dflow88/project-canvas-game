@@ -2,14 +2,34 @@
     font-family: 'Pacifico', cursive;
 }
 
+/* html {
+    min-width: 100%;
+    min-height: 100%;
+    background-image: url(http://www.example.com/somelargeimage.jpg);
+    background-position: top center;
+    background-color: #000;
+  }
+  
+  body {
+    width: 1054px;
+    height: 650px;
+    background-color: #FFF;
+  } */
 #main {
     
     background-image: url(./images/wave-background.gif);
     filter: brightness(1);
-    position: absolute;
+    border: 5px double turquoise;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    display:block;
     background-repeat: no-repeat;
-    top: 0;
-    left: 0;
+    overflow: scroll;
+    
 
 }
 
@@ -17,6 +37,6 @@
     border-style: 1px solid red;
 }
 
-#main-song {
+#musica {
     display: none;
 }
