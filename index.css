@@ -45,6 +45,20 @@ body {
     flex-direction: column;
     }
 
+#you-win {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    display: none;
+    }
+
+#you-lose {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    display: none;
+    }
+
 h1 {
     font-size: 70px;
     text-align: center;
@@ -86,7 +100,24 @@ mark {
     border: 2px solid white;
     color: white;
     padding: 15px 32px;
-    
+}
+
+#again {
+   
+    font-size: 30px;
+    background-color: #68bdd8;
+    border: 2px solid white;
+    color: white;
+    padding: 15px 32px;
+}
+
+#again2 {
+   
+    font-size: 30px;
+    background-color: #68bdd8;
+    border: 2px solid white;
+    color: white;
+    padding: 15px 32px;
 }
 
 #musica {

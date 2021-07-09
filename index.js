@@ -106,15 +106,26 @@ class Character {
   update() {
     if (this.blinkFrames > 0 && this.type == 'surfer') {
       if (this.blink == false) {
-        this.image.onload;
-        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-        this.blink = true
+        if (surfer.speedX<0){
+          surferLeft.image.onload;
+          ctx.drawImage(surferLeft.image, this.x, this.y, this.width, this.height);
+        } else {
+          this.image.onload;
+          ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        }
+          this.blink = true
+        
       } else {
           this.blink = false
       }
     } else {
-      this.image.onload;
-      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+      if (this.type == 'surfer' && surfer.speedX<0) {
+        surferLeft.image.onload;
+        ctx.drawImage(surferLeft.image, this.x, this.y, this.width, this.height);
+      } else {
+        this.image.onload;
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+      }
     }
   }
 
@@ -140,7 +151,8 @@ function updateGameArea() {
 }
 
 // INICIO DE SURFER
-const surfer = new Character("./images/kid-surf (1).png", 100, 250, 90, 115, 'surfer');
+const surfer = new Character("./images/kid-surf.png", 100, 250, 90, 115, 'surfer');
+const surferLeft = new Character("./images/kid-surf-left.png", 100, 250, 90, 115, 'surfer');
 
 const liveImageArray = ["./images/lives.png", canvas.width - 240 +40 * 1, 10, 30, 45, 'liveImage']
 
@@ -193,19 +205,37 @@ ctx.fillText(goal, canvas.width - 35, 45)
 
 function newInstructor() {
   for (i = 0; i < instructors.length; i++) {
-      if (instructors[i].y < 300) {
-          instructors[i].x -= 2;
-          instructors[i].y -= 2;
-      } else if (instructors[i].y < 400) {
-          instructors[i].x -= 2;
-          instructors[i].y -= 1;
-      } else if (instructors[i].y < 500) {
-          instructors[i].x -= 2;
-          instructors[i].y -= 0.5;
-      } else {
-          instructors[i].x -= 2;
-          instructors[i].y -= 0.3;  
+      if (goal == goal) {
+          if (instructors[i].y < 300) {
+            instructors[i].x -= 2;
+            instructors[i].y -= 2;
+        } else if (instructors[i].y < 400) {
+            instructors[i].x -= 2;
+            instructors[i].y -= 1;
+        } else if (instructors[i].y < 500) {
+            instructors[i].x -= 2;
+            instructors[i].y -= 0.5;
+        } else {
+            instructors[i].x -= 2;
+            instructors[i].y -= 0.3;  
+        }
       }
+      // if (goal <= 6) {
+      //   if (instructors[i].y < 300) {
+      //     instructors[i].x -= 1.5;
+      //     instructors[i].y -= 1.5;
+      // } else if (instructors[i].y < 400) {
+      //     instructors[i].x -= 1.5;
+      //     instructors[i].y -= 0.75;
+      // } else if (instructors[i].y < 500) {
+      //     instructors[i].x -= 1.5;
+      //     instructors[i].y -= 0.375;
+      // } else {
+      //     instructors[i].x -= 1.5;
+      //     instructors[i].y -= 0.225;  
+      //   }
+      // }
+
       instructors[i].update();
       }
 
@@ -267,23 +297,54 @@ function newObstacle() {
       }
       obstacles[i].update();  
     } else {
-      if (obstacles[i].y < 300) {
-          obstacles[i].x -= 2;
-          obstacles[i].y -= 2;
-      } else if (obstacles[i].y < 400) {
-          obstacles[i].x -= 2;
-          obstacles[i].y -= 1;
-      } else if (obstacles[i].y < 500) {
-          obstacles[i].x -= 2;
-          obstacles[i].y -= 0.5;
-      } else {
-          obstacles[i].x -= 2;
-          obstacles[i].y -= 0.3;  
+      if (goal == goal) {
+        if (obstacles[i].y < 300) {
+            obstacles[i].x -= 2;
+            obstacles[i].y -= 2;
+        } else if (obstacles[i].y < 400) {
+            obstacles[i].x -= 2;
+            obstacles[i].y -= 1;
+        } else if (obstacles[i].y < 500) {
+            obstacles[i].x -= 2;
+            obstacles[i].y -= 0.5;
+        } else {
+            obstacles[i].x -= 2;
+            obstacles[i].y -= 0.3;  
+        }
       }
+      // if (goal >3) {
+      //   if (obstacles[i].y < 300) {
+      //       obstacles[i].x -= 1.5;
+      //       obstacles[i].y -= 1.5;
+      //   } else if (obstacles[i].y < 400) {
+      //       obstacles[i].x -= 1.5;
+      //       obstacles[i].y -= 0.75;
+      //   } else if (obstacles[i].y < 500) {
+      //       obstacles[i].x -= 1.5;
+      //       obstacles[i].y -= 0.375;
+      //   } else {
+      //       obstacles[i].x -= 1.5;
+      //       obstacles[i].y -= 0.225;  
+      //   }
+      // }
+      // if (goal <=3) {
+      //   if (obstacles[i].y < 300) {
+      //       obstacles[i].x -= 1.2;
+      //       obstacles[i].y -= 1.2;
+      //   } else if (obstacles[i].y < 400) {
+      //       obstacles[i].x -= 1.2;
+      //       obstacles[i].y -= 0.6;
+      //   } else if (obstacles[i].y < 500) {
+      //       obstacles[i].x -= 1.2;
+      //       obstacles[i].y -= 0.3;
+      //   } else {
+      //       obstacles[i].x -= 1.2;
+      //       obstacles[i].y -= 0.18;  
+      //   }
+      // }
       obstacles[i].update();
       }
   }
-
   gameArea.frames2 += 1;
 
     let r1 = Math.floor(Math.random() * obstacleArray.length);
@@ -292,23 +353,66 @@ function newObstacle() {
     let rY1 = Math.floor(Math.random() * (canvas.height - 465) + 465);
     let rY3 = Math.floor(Math.random() * (465 - 330) + 330);
     let rX = Math.floor(Math.random() * (canvas.width/2));
-    if (gameArea.frames2 % 120 === 0) {
-    obstacles.push(
-        new Character(obstacleArray[r1][0],canvas.width-obstacleArray[r1][3], rY1,obstacleArray[r1][3],obstacleArray[r1][4],"y"
-        )
-      );
+
+    if (goal <=3) {
+      if (gameArea.frames2 % 200 === 0) {
+      obstacles.push(
+          new Character(obstacleArray[r1][0],canvas.width-obstacleArray[r1][3], rY1,obstacleArray[r1][3],obstacleArray[r1][4],"y"
+          )
+        );
+      }
+      if (gameArea.frames2 % 233 === 0) {
+      obstacles.push(
+          new Character(obstacleArray[r3][0],canvas.width-obstacleArray[r3][3], rY3,obstacleArray[r3][3],obstacleArray[r3][4],"y"
+          )
+        );
+      }
+      if (gameArea.frames2 % 160 === 0) {
+      obstacles.push(
+          new Character(obstacleArray[r2][0],rX, canvas.height-obstacleArray[r2][4],obstacleArray[r2][3],obstacleArray[r2][4],"x"
+          )
+        );
+      }
     }
-    if (gameArea.frames2 % 140 === 0) {
-    obstacles.push(
-        new Character(obstacleArray[r3][0],canvas.width-obstacleArray[r3][3], rY3,obstacleArray[r3][3],obstacleArray[r3][4],"y"
-        )
-      );
+    if (goal >3) {
+      if (gameArea.frames2 % 160 === 0) {
+      obstacles.push(
+          new Character(obstacleArray[r1][0],canvas.width-obstacleArray[r1][3], rY1,obstacleArray[r1][3],obstacleArray[r1][4],"y"
+          )
+        );
+      }
+      if (gameArea.frames2 % 187 === 0) {
+      obstacles.push(
+          new Character(obstacleArray[r3][0],canvas.width-obstacleArray[r3][3], rY3,obstacleArray[r3][3],obstacleArray[r3][4],"y"
+          )
+        );
+      }
+      if (gameArea.frames2 % 160 === 0) {
+      obstacles.push(
+          new Character(obstacleArray[r2][0],rX, canvas.height-obstacleArray[r2][4],obstacleArray[r2][3],obstacleArray[r2][4],"x"
+          )
+        );
+      }
     }
-    if (gameArea.frames2 % 160 === 0) {
-    obstacles.push(
-        new Character(obstacleArray[r2][0],rX, canvas.height-obstacleArray[r2][4],obstacleArray[r2][3],obstacleArray[r2][4],"x"
-        )
-      );
+    if (goal >6) {
+      if (gameArea.frames2 % 120 === 0) {
+      obstacles.push(
+          new Character(obstacleArray[r1][0],canvas.width-obstacleArray[r1][3], rY1,obstacleArray[r1][3],obstacleArray[r1][4],"y"
+          )
+        );
+      }
+      if (gameArea.frames2 % 140 === 0) {
+      obstacles.push(
+          new Character(obstacleArray[r3][0],canvas.width-obstacleArray[r3][3], rY3,obstacleArray[r3][3],obstacleArray[r3][4],"y"
+          )
+        );
+      }
+      if (gameArea.frames2 % 160 === 0) {
+      obstacles.push(
+          new Character(obstacleArray[r2][0],rX, canvas.height-obstacleArray[r2][4],obstacleArray[r2][3],obstacleArray[r2][4],"x"
+          )
+        );
+      }
     }
 }
 
@@ -364,6 +468,7 @@ function oneUp() {
   }
 }
 
+const youWin = document.getElementById("you-win")
 
 function runOverWin() {
   for (let i = 0; i < instructors.length; i++) {
@@ -381,12 +486,14 @@ function runOverWin() {
     if (goal == 10) {
       ctx.clearRect(canvas.width - 50, 10,35,45)
       scoreNumber()
+      audioElementMain.pause()
       setTimeout(function(){audioElementWin1.play()},500)
       setTimeout(function(){audioElementWin2.play()},900)
       setTimeout(function(){audioElementWin3.play()},1400)
-      
-      setTimeout(function(){window.alert("YEWWW You win!")},1410)
       gameArea.stop();
+      canvas.style.display = 'none'
+      youWin.style.display = 'block'
+      youWin.style.display = 'flex'
     }
       // blinkTime()
     } //else {
@@ -401,6 +508,7 @@ function runOverWin() {
 //   if (blinkFrames >= 0) 
 // }
 
+const youLose = document.getElementById("you-lose")
 
 function gameOver() {
 
@@ -410,13 +518,32 @@ function gameOver() {
     surfer.blinkFrames--
   }
   if (surfer.lives <= 0) {
+    audioElementMain.pause()
     audioElementLose.play()
-    ctx.clearRect(canvas.width - 120, 60,35,60)
-    setTimeout(function(){window.alert("Game Over!!!")},2000)
+    ctx.clearRect(canvas.width - 120, 60,70,60)
     gameArea.stop();
+    canvas.style.display = 'none'
+    youLose.style.display = 'block'
+    youLose.style.display = 'flex'
   }
 }
 
+// function restart(){
+//   gameArea.frames1 = 0
+//   gameArea.frames2 = 0
+//   gameArea.frames3 = 0
+//   this.speedX = 0;
+//   this.speedY = 0;
+//   this.x = 0;
+//   this.y = 0;
+//   this.width = 0;
+//   this.height = 0;
+//   this.type = 0
+//   surfer.lives = 3
+//   this.blinkFrames = 0
+//   this.blink = false
+//   goal = 0
+// }
 
 
 //OBSTACULOS E INSTRUCTORES ACUMULADOS
@@ -435,11 +562,21 @@ const livesImages = []
 
 const cover = document.getElementById("cover")
 const beginButton = document.getElementById("btn")
+const againButton = document.getElementById("again")
+const again2Button = document.getElementById("again2")
 
 beginButton.addEventListener("click", () => {
   gameArea.start()
   canvas.style.display = 'block'
   cover.style.display = 'none'
+})
+
+againButton.addEventListener("click", () => {
+window.location.reload()
+})
+
+again2Button.addEventListener("click", () => {
+  window.location.reload()
 })
 
 
