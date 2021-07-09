@@ -1,12 +1,40 @@
+const f = new FontFace("Pacifico", 'https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+  f.load().then(function() {
+    // Ready to use the font in a canvas context
+});
+
 // IMPORTING THE CANVAS
 
 const canvas = document.getElementById("main");
 ctx = canvas.getContext("2d");
 
-var f = new FontFace("Pacifico", 'https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-  f.load().then(function() {
-    // Ready to use the font in a canvas context
-});
+// AUDIOS
+const audioElementMain = document.getElementById("main-song");
+audioElementMain.load()
+audioElementMain.volume = 0.2
+const audioElementCollision = document.getElementById("collision");
+audioElementCollision.load
+audioElementCollision.volume = 0.3
+const audioElementInstructor = document.getElementById("instructor-eat");
+audioElementInstructor.load()
+audioElementInstructor.volume = 0.3
+const audioElementChocolate = document.getElementById("choco-eat");
+audioElementChocolate.load()
+audioElementChocolate.volume = 0.3
+const audioElementWin1 = document.getElementById("win1");
+audioElementWin1.load()
+audioElementWin1.volume = 0.4
+const audioElementWin2 = document.getElementById("win2");
+audioElementWin2.load()
+audioElementWin2.volume = 0.4
+const audioElementWin3 = document.getElementById("win3");
+audioElementWin3.load()
+audioElementWin3.volume = 0.4
+const audioElementLose = document.getElementById("lose");
+audioElementLose.load()
+audioElementLose.volume = 0.4
+
+
 
 // STRUCTURE OF THE GAME AREA
 
@@ -96,6 +124,7 @@ class Character {
 // Motor del juego
 function updateGameArea() {
   gameArea.clear();
+  audioElementMain.play()
   surfer.newPos();
   surfer.update();
   scoreImage.update()
@@ -103,6 +132,7 @@ function updateGameArea() {
   newLiveImage() 
   newObstacle();
   newInstructor()
+  // newBubble()
   newChocolate()
   oneUp()
   runOverWin()
@@ -125,6 +155,8 @@ const obstacleArray = [
 
 const instructorArray = ["./images/surf-instructor.png", canvas.width, canvas.height, 60, 60, 0]
 
+// const bubbleArray = ["./images/Fuera.png", canvas.width, canvas.height, 60, 30, 0]
+
 const chocolateArray = ["./images/funny-chocolate.png", canvas.width, canvas.height, 30, 35, 0]
 
 
@@ -134,8 +166,7 @@ const scoreImage = new Character(instructorArray[0],canvas.width - instructorArr
 function newLiveImage() {
   for (i = 0; i < surfer.lives; i++) {
     livesImages.push(
-        new Character(liveImageArray[0],canvas.width - liveImageArray[3]/2 -(liveImageArray[3]+5)*3 + (liveImageArray[3]+5) * i, 70,liveImageArray[3],liveImageArray[4],liveImageArray[5]
-        )
+        new Character(liveImageArray[0],canvas.width - liveImageArray[3]/2 -(liveImageArray[3]+5)*3 + (liveImageArray[3]+5) * i, 70,liveImageArray[3],liveImageArray[4],liveImageArray[5])
       )
       livesImages[i].update()
   }
@@ -149,6 +180,16 @@ ctx.fillStyle = "#30837E";
 ctx.textAlign = "center";
 ctx.fillText(goal, canvas.width - 35, 45)
 }
+
+// function newBubble() {
+//     if (instructors[0].x == 600) {
+//       bubbles.push(
+//         // new Character(bubbleArray[0],instructors[i].x+instructors[i].width,instructors[i].y + 5, 60,30,'bubble')
+//         new Character(bubbleArray[0],instructors[0].x,instructors[0].y,instructors[0].width, instructors[0].height,'bubble')
+//       )
+//       bubbles[0].update
+//     }
+// }
 
 function newInstructor() {
   for (i = 0; i < instructors.length; i++) {
@@ -245,7 +286,6 @@ function newObstacle() {
 
   gameArea.frames2 += 1;
 
-
     let r1 = Math.floor(Math.random() * obstacleArray.length);
     let r2 = Math.floor(Math.random() * obstacleArray.length);
     let r3 = Math.floor(Math.random() * obstacleArray.length);
@@ -295,7 +335,7 @@ function crashes() {
       surfer.y + surfer.height - 20 > obstacles[i].y &&
       surfer.y + 20 < obstacles[i].y + obstacles[i].height
     ) {
-      const audioElementCollision = document.getElementById("collision");
+
       audioElementCollision.play()
       surfer.lives--
       surfer.blinkFrames = 100
@@ -371,7 +411,8 @@ function gameOver() {
   }
   if (surfer.lives <= 0) {
     audioElementLose.play()
-    window.alert("Game Over!!!");
+    ctx.clearRect(canvas.width - 120, 60,35,60)
+    setTimeout(function(){window.alert("Game Over!!!")},2000)
     gameArea.stop();
   }
 }
@@ -388,8 +429,19 @@ const chocolates = []
 
 const livesImages = []
 
+// const bubbles = []
+
 // INICIO DEL JUEGO
-gameArea.start();
+
+const cover = document.getElementById("cover")
+const beginButton = document.getElementById("btn")
+
+beginButton.addEventListener("click", () => {
+  gameArea.start()
+  canvas.style.display = 'block'
+  cover.style.display = 'none'
+})
+
 
 document.addEventListener("keydown", (e) => {
   switch (e.keyCode) {
@@ -421,21 +473,3 @@ document.addEventListener('keyup', () => {
 })
 
 
-window.addEventListener('click', () => {
-  audioElementMain.play()
-})
-
-const audioElementMain = document.getElementById("main-song");
-audioElementMain.load()
-const audioElementInstructor = document.getElementById("instructor-eat");
-audioElementInstructor.load()
-const audioElementChocolate = document.getElementById("choco-eat");
-audioElementChocolate.load()
-const audioElementWin1 = document.getElementById("win1");
-audioElementWin1.load()
-const audioElementWin2 = document.getElementById("win2");
-audioElementWin2.load()
-const audioElementWin3 = document.getElementById("win3");
-audioElementWin3.load()
-const audioElementLose = document.getElementById("lose");
-audioElementLose.load()

@@ -9,15 +9,36 @@
     <link rel="icon" type="image/ico" href="./images/faviconn.ico" sizes="any">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
     </style>
 </head>
 <body>
 
+    <section id="cover">
+        <h1>
+            Surf in La Punta
+        </h1>
+        <h5>
+            <mark id="resaltado">Prueba tu agilidad y paciencia en esta ola divertida e infinita.
+            <br>
+            Utiliza las flechas de tu teclado <img id="arrows" src="images/arrows.png"> para mover al jugador y esquivar los
+             <img id="arrows" src="images/student-2.png"> obstáculos <img id="arrows" src="images/pelican2.png">.
+            <br>
+            <br>
+            Recolecta 10 instructores <img id="arrows" src="images/surf-instructor.png"> para ganar, y si se te están acabando
+            las vidas, puedes arriesgarte e intentar conseguir un chocolate <img id="arrows" src="images/funny-chocolate.png">.
+            </mark>
+            
+        </h5>
+        <div id="button-start">
+            <button id="btn" type="button">Let's Surf!</button>
+        </div>
+    </section>
 
     <canvas id="main" width="900" height="600"></canvas>
 
     <div id="musica">
-        <audio id="main-song" controls>
+        <audio id="main-song" volume="0.3">
             <source src="./music/secret-agent-rock-70.mp3" type="audio/mp4">
         </audio>
     </div>

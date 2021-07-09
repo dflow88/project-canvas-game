@@ -1,5 +1,5 @@
 * {
-    font-family: 'Pacifico', cursive;
+    font-family: 'Anton', sans-serif;
 }
 
 /* html {
@@ -25,16 +25,68 @@
     padding-right: 0;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
-    display:block;
+    margin-top: 20px;
+    display: none;
     background-repeat: no-repeat;
     overflow: scroll;
-    
 
 }
+    
+body {
+    background-image: url(./images/coverSurf.png);
+    background-color: #cccccc;
+    background-repeat: no-repeat;
+    background-position: top;
+}
 
-#side {
-    border-style: 1px solid red;
+#cover {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    }
+
+h1 {
+    font-size: 70px;
+    text-align: center;
+    color: #754c24;
+    margin-bottom: auto;
+}
+
+h5 {
+
+    font-size: 30px;
+    text-align: center;
+    color: #754c24;
+    width: 900px;
+}
+
+mark {
+    background-color: #68bdd8;
+    color: #754c24;
+    opacity: 0.8;
+}
+
+
+#arrows {
+    height: 40px;
+    display: inline-block;
+}
+
+
+
+#button-start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#btn {
+   
+    font-size: 30px;
+    background-color: #68bdd8;
+    border: 2px solid white;
+    color: white;
+    padding: 15px 32px;
+    
 }
 
 #musica {
